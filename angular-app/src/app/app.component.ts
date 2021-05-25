@@ -1,16 +1,13 @@
 import { Component } from '@angular/core';
+export class Customer {
+  public id: number;
+  public name: string;
+}
 @Component({
   selector: 'app-root',
-  template: `
-    <div>
-      <app-header-bar></app-header-bar>
-      <div class="section columns">
-        <app-nav class="column is-2"></app-nav>
-        <main class="column">
-          <router-outlet></router-outlet>
-        </main>
-      </div>
-    </div>
-  `,
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent {}
+export class AppComponent {
+  customers: Customer[] = [{ id: 1, name: 'john' }];
+}

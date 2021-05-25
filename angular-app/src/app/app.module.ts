@@ -5,23 +5,31 @@ import { HttpClientModule } from '@angular/common/http';
 import { routes } from './router';
 import { AppComponent } from './app.component';
 import { AppStoreModule } from './store/store.module';
-import { HomeComponent } from './home.component';
+import { AboutComponent } from './about.component';
 import { RouterModule } from '@angular/router';
 import { externalModules } from './build-specific';
 import { declarations } from './core';
-import { DiscountComponent } from './discounts.component';
-import { SharedModule } from './shared/shared.module';
+import {
+  HttpClientInMemoryWebApiModule,
+  InMemoryDbService,
+} from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './in-memory-data.service';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, DiscountComponent, declarations],
+  declarations: [AppComponent, AboutComponent, declarations],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
     AppStoreModule,
-    SharedModule,
     externalModules,
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
+      dataEncapsulation: false,
+      delay: 300,
+      passThruUnknownUrl: true,
+    }),
   ],
+  providers: [{ provide: InMemoryDataService, useExisting: InMemoryDbService }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
