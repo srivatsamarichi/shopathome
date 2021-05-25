@@ -12,9 +12,5 @@ export const defaultDataServiceConfig: DefaultDataServiceConfig = {
       entityResourceUrl: `${root}/products/`,
       collectionResourceUrl: `${root}/products/`,
     },
-    Discount: {
-      entityResourceUrl: `${root}/discounts/`,
-      collectionResourceUrl: `${root}/discounts/`,
-    },
   },
 };

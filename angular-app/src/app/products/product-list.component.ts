@@ -1,19 +1,10 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Product } from '../core';
 
 @Component({
   selector: 'app-product-list',
   template: `
-    <div *ngIf="errorMessage">
-      {{ errorMessage }}
-    </div>
-    <div *ngIf="!products?.length && !errorMessage">
+    <div *ngIf="!products?.length">
       Loading data ...
     </div>
     <ul class="list">
@@ -26,24 +17,6 @@ import { Product } from '../core';
             [name]="product.name"
             [description]="product.description"
           ></app-card-content>
-          <footer class="card-footer">
-            <app-button-footer
-              class="card-footer-item"
-              [className]="'delete-item'"
-              [iconClasses]="'fas fa-trash'"
-              (clicked)="deleteProduct($event)"
-              label="Delete"
-              [item]="product"
-            ></app-button-footer>
-            <app-button-footer
-              class="card-footer-item"
-              [className]="'edit-item'"
-              [iconClasses]="'fas fa-edit'"
-              (clicked)="selectProduct($event)"
-              label="Edit"
-              [item]="product"
-            ></app-button-footer>
-          </footer>
         </div>
       </li>
     </ul>
@@ -51,20 +24,9 @@ import { Product } from '../core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductListComponent {
-  @Input() errorMessage = undefined;
   @Input() products: Product[];
-  @Output() deleted = new EventEmitter<Product>();
-  @Output() selected = new EventEmitter<Product>();
 
   trackByProduct(index: number, product: Product): number {
     return product.id;
-  }
-
-  selectProduct(product: Product) {
-    this.selected.emit(product);
-  }
-
-  deleteProduct(product: Product) {
-    this.deleted.emit(product);
   }
 }
